@@ -22,8 +22,13 @@ function createHabit({data, token}){
     return promise;
 }
 
-function deleteHabit(token, idHabit){
-    const promise = axios.delete(`${BASE_URL}/habits/${idHabit}`, {Authorization: `Bearer ${token}`});
+function deleteHabit({token, idHabit}){
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    const promise = axios.delete(`${BASE_URL}/habits/${idHabit}`, config);
     return promise;
 }
 //ok

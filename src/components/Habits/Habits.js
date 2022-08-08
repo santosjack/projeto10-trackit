@@ -50,6 +50,7 @@ export default function Habits() {
                                 id={item.id}
                                 name={item.name}
                                 days={item.days}
+                                reload={getAllHabits}
                             />
                         ) : (
                             <div className="empty">

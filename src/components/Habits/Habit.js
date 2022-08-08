@@ -1,6 +1,7 @@
 import styled from "styled-components"
+import { deleteHabit, getHabits } from "../../services/trackit";
 
-export default function Habit ({id, name, days}) {
+export default function Habit ({id, name, days, reload}) {
     function mountWeek (days){
         const weekdays = [
             {
@@ -48,7 +49,15 @@ export default function Habit ({id, name, days}) {
     }
 
     function confirmDelete(id){
-        
+        const result = window.confirm("Desejarealmente excluir o hábito?");
+        if(result){
+            deleteHabit({ idHabit: id, token: JSON.parse(localStorage.getItem('token')) })
+            .then((resp) => {
+                reload();
+            }).catch(
+                console.log("Não foi possível excluir")
+            )
+        }
     }
 
     return(
@@ -60,7 +69,7 @@ export default function Habit ({id, name, days}) {
                 </div>
             </div>
             <div className="bt-delete">
-                <ion-icon onClick={() => console.log("deletei")} name="trash-outline"></ion-icon>
+                <ion-icon onClick={() => confirmDelete(id)} name="trash-outline"></ion-icon>
             </div>
         </Wrapper>
     )
